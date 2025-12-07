@@ -6,12 +6,16 @@ A beautiful web application that generates AI images from text descriptions usin
 
 ## Features
 
-- Clean and intuitive user interface
-- Fast image generation using FLUX.1-schnell model
-- Real-time loading indicators
-- Comprehensive error handling
-- Example prompts for inspiration
-- Tips for better results
+- **Clean and intuitive user interface** with custom styling
+- **Fast image generation** using FLUX.1-schnell model
+- **Random Prompt Generator** - Get instant creative inspiration with 1-25 random words from 300+ word dictionary
+- **Download Button** - Save generated images with timestamped filenames
+- **Negative Prompt Support** - Tell the AI what to avoid in your images
+- **Real-time loading indicators** with progress feedback
+- **Comprehensive error handling** with helpful troubleshooting messages
+- **Example prompts** for inspiration in sidebar
+- **Advanced options panel** with tips and model information
+- **Tips for better results** and prompt guidance
 
 ## Prerequisites
 
@@ -82,10 +86,34 @@ The application will open in your browser at `http://localhost:8501`
 
 ## Usage
 
-1. Enter a description of the image you want to generate
-2. Click "Generate Image"
-3. Wait 10-30 seconds for the AI to create your image
-4. Right-click on the generated image to save it
+### Basic Usage
+
+1. **Enter a description** of the image you want to generate in the main text area
+2. **(Optional)** Add a negative prompt to specify what you DON'T want
+3. Click **"🚀 Generate Image"** button
+4. Wait 10-30 seconds for the AI to create your image
+5. **Download** your image using the download button (timestamped filename)
+6. Or right-click on the image to save it manually
+
+### Using the Random Prompt Generator
+
+1. Click **"🎲 Random Prompt"** button to get instant creative inspiration
+2. A random prompt (1-25 words) will be generated from 300+ word dictionary
+3. Click again for a completely different prompt
+4. Edit the prompt if you want to customize it
+5. Click **"🚀 Generate Image"** to create the image
+
+### Using Negative Prompts
+
+Negative prompts help you avoid unwanted elements in your images:
+
+1. Enter your main prompt describing what you want
+2. In the **"🚫 Negative Prompt"** field, list what you DON'T want
+3. Examples:
+   - "blurry, low quality, distorted"
+   - "dark, gloomy, scary"
+   - "text, watermark, signature"
+   - "oversaturated, ugly, deformed"
 
 ### Example Prompts
 
