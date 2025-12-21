@@ -146,6 +146,10 @@ st.markdown("---")
 if 'prompt_text' not in st.session_state:
     st.session_state.prompt_text = ""
 
+# Initialize session state for image history
+if 'image_history' not in st.session_state:
+    st.session_state.image_history = []
+
 # Prompt input
 prompt = st.text_area(
     "✍️ Enter your image description:",
@@ -220,6 +224,20 @@ if generate_button:
                 st.success("✅ Image generated successfully!")
                 st.image(image, caption=f"Generated: {prompt}", use_container_width=True)
 
+                # Save to image history
+                current_time = datetime.now()
+                image_data = {
+                    'image': image,
+                    'prompt': prompt,
+                    'negative_prompt': negative_prompt if negative_prompt else None,
+                    'timestamp': current_time
+                }
+                st.session_state.image_history.insert(0, image_data)
+
+                # Limit to 10 images to prevent memory issues
+                if len(st.session_state.image_history) > 10:
+                    st.session_state.image_history = st.session_state.image_history[:10]
+
                 # Download button
                 st.markdown("---")
 
@@ -229,7 +247,7 @@ if generate_button:
                 byte_im = buf.getvalue()
 
                 # Create timestamp for filename
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                timestamp = current_time.strftime("%Y%m%d_%H%M%S")
                 filename = f"ai_generated_{timestamp}.png"
 
                 # Download button
@@ -276,6 +294,68 @@ if generate_button:
             else:
                 st.error(f"**Error Details:** {error_message}")
                 st.info("Try refreshing the page or checking your internet connection.")
+
+# Image History Gallery
+st.markdown("---")
+st.markdown("## 🖼️ Image History")
+
+if len(st.session_state.image_history) > 0:
+    # Header with count and clear button
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        st.write(f"**{len(st.session_state.image_history)} image(s) in history** (max 10)")
+    with col2:
+        if st.button("🗑️ Clear History"):
+            st.session_state.image_history = []
+            st.rerun()
+
+    st.markdown("---")
+
+    # Display images in grid (3 columns)
+    for idx in range(0, len(st.session_state.image_history), 3):
+        cols = st.columns(3)
+
+        for col_idx, col in enumerate(cols):
+            img_idx = idx + col_idx
+            if img_idx < len(st.session_state.image_history):
+                img_data = st.session_state.image_history[img_idx]
+
+                with col:
+                    # Display image
+                    st.image(img_data['image'], use_container_width=True)
+
+                    # Show timestamp
+                    time_str = img_data['timestamp'].strftime("%m/%d %I:%M %p")
+                    st.caption(f"🕒 {time_str}")
+
+                    # Show prompt in expander
+                    with st.expander("📝 View Prompt"):
+                        st.write(f"**Prompt:** {img_data['prompt']}")
+                        if img_data.get('negative_prompt'):
+                            st.write(f"**Negative:** {img_data['negative_prompt']}")
+
+                    # Download button for this image
+                    buf = BytesIO()
+                    img_data['image'].save(buf, format="PNG")
+                    byte_im = buf.getvalue()
+                    timestamp_str = img_data['timestamp'].strftime("%Y%m%d_%H%M%S")
+
+                    st.download_button(
+                        label="⬇️ Download",
+                        data=byte_im,
+                        file_name=f"ai_generated_{timestamp_str}.png",
+                        mime="image/png",
+                        key=f"download_{img_idx}"
+                    )
+
+                    # Regenerate button
+                    if st.button("🔄 Regenerate", key=f"regen_{img_idx}"):
+                        st.session_state.prompt_text = img_data['prompt']
+                        st.rerun()
+
+                    st.markdown("---")
+else:
+    st.info("📭 No images generated yet. Create your first image above!")
 
 # Footer
 st.markdown("---")
