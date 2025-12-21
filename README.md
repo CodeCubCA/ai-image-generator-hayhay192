@@ -9,8 +9,10 @@ A beautiful web application that generates AI images from text descriptions usin
 - **Clean and intuitive user interface** with custom styling
 - **Fast image generation** using FLUX.1-schnell model
 - **Random Prompt Generator** - Get instant creative inspiration with 1-25 random words from 300+ word dictionary
+- **Image History Gallery** - View all generated images in a 3-column grid (up to 10 images)
 - **Download Button** - Save generated images with timestamped filenames
 - **Negative Prompt Support** - Tell the AI what to avoid in your images
+- **Regenerate from History** - Reuse prompts from previously generated images
 - **Real-time loading indicators** with progress feedback
 - **Comprehensive error handling** with helpful troubleshooting messages
 - **Example prompts** for inspiration in sidebar
@@ -114,6 +116,22 @@ Negative prompts help you avoid unwanted elements in your images:
    - "dark, gloomy, scary"
    - "text, watermark, signature"
    - "oversaturated, ugly, deformed"
+
+### Using Image History Gallery
+
+The app automatically saves your last 10 generated images:
+
+1. **View History** - Scroll down to see all your generated images in a 3-column grid
+2. **View Prompts** - Click "📝 View Prompt" to see the prompts used for each image
+3. **Download** - Each image has its own "⬇️ Download" button
+4. **Regenerate** - Click "🔄 Regenerate" to reuse a prompt from your history
+5. **Clear History** - Click "🗑️ Clear History" to remove all saved images
+
+Features:
+- Stores up to 10 images per session
+- Shows timestamp for each image
+- Displays both positive and negative prompts
+- Most recent images appear first
 
 ### Example Prompts
 
