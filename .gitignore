@@ -26,8 +26,8 @@ venv.bak/
 .DS_Store
 Thumbs.db
 
-# Streamlit
-.streamlit/
+# Streamlit (allow config.toml for HF Spaces, but ignore secrets)
+.streamlit/secrets.toml
 
 # Distribution / packaging
 build/
