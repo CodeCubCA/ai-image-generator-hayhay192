@@ -11,7 +11,14 @@ import random
 load_dotenv()
 
 # Configuration
+# Try to get token from environment variables first (for local), then from Streamlit secrets (for HF Spaces)
 HUGGINGFACE_TOKEN = os.getenv("HUGGINGFACE_TOKEN")
+if not HUGGINGFACE_TOKEN:
+    try:
+        HUGGINGFACE_TOKEN = st.secrets["HUGGINGFACE_TOKEN"]
+    except (KeyError, FileNotFoundError):
+        pass
+
 MODEL_NAME = "black-forest-labs/FLUX.1-schnell"
 
 # Word dictionary for random prompt generation

@@ -169,17 +169,37 @@ Features:
   - `python-dotenv` - Environment variables
   - `Pillow` - Image processing
 
+## Deploying to HuggingFace Spaces
+
+To deploy this app to HuggingFace Spaces:
+
+1. Create a new Space on HuggingFace with Streamlit SDK
+2. Push your code to the Space repository
+3. **IMPORTANT:** Add your HuggingFace token as a secret:
+   - Go to your Space settings: `https://huggingface.co/spaces/YOUR_USERNAME/YOUR_SPACE/settings`
+   - Scroll to "Repository secrets"
+   - Click "Add a secret"
+   - Name: `HUGGINGFACE_TOKEN`
+   - Value: Your HuggingFace API token
+   - Click "Add secret"
+4. The Space will automatically restart with the token configured
+
 ## Troubleshooting
 
 ### "HuggingFace API token not found"
-- Make sure you created the `.env` file
-- Check that your token is correctly added to the `.env` file
+- **Local:** Make sure you created the `.env` file with your token
+- **HF Spaces:** Add token as a repository secret (see deployment instructions above)
 - Restart the application after adding the token
 
 ### "Authentication Error"
 - Verify your token is correct
 - Ensure your token has **Write** permissions (not read-only)
 - Generate a new token if needed
+
+### "Runtime Error: Launch timed out" (HuggingFace Spaces)
+- This means the token is not configured as a repository secret
+- Follow the deployment instructions above to add your token
+- The Space needs the token to authenticate with the HuggingFace API
 
 ### "Rate Limit Exceeded"
 - Free tier has usage limits
